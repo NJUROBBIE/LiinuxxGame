@@ -1,6 +1,6 @@
-# Liinux 夺旗
+# Liinux 地牢
 
-在终端里走迷宫：捡完本关全部金币 `$`，再走到旗帜 `E`。一共 3 关。
+终端回合制地牢。三层地图，视野会被墙挡住。打倒怪物、捡钥匙开门，走到楼梯 `>` 下楼。第三层的楼梯是出口。
 
 仓库地址：https://github.com/NJUROBBIE/LiinuxxGame
 
@@ -24,63 +24,34 @@ chmod +x game.py
 
 | 按键 | 作用 |
 | --- | --- |
-| W A S D 或方向键 | 移动 |
-| R | 重开本关 |
+| W A S D 或方向键 | 移动。撞上怪物就是攻击 |
+| F | 喝药水，回复 10 点生命 |
+| . | 等待一回合 |
+| R | 重开 |
 | Q | 退出 |
-| Y | 通关后再玩一局 |
+| Y | 结束后再玩一局 |
 
-金币 +10 分，过关 +50 分。最高分写在当前目录的 `highscore.txt`（已加入 `.gitignore`，不会提交）。
+## 地图
 
-## 自测关卡
+| 符号 | 含义 |
+| --- | --- |
+| `@` | 玩家 |
+| `g` | 哥布林 |
+| `G` | 守卫，血更厚 |
+| `k` | 钥匙 |
+| `D` | 上锁的门，消耗一把钥匙 |
+| `p` | 药水，捡起来后按 F 喝 |
+| `>` | 楼梯。前两层下楼，第三层逃出 |
+| `#` | 墙 |
+
+没走过的地方是黑的，离开视野后只留下淡淡的地形。最高分写在当前目录的 `highscore.txt`（已加入 `.gitignore`，不会提交）。
+
+下楼加 30 分，哥布林 15 分，守卫 40 分，逃出时按剩余生命再加分。
+
+## 自测
 
 ```bash
 python3 game.py --self-test
 ```
 
-## 建议的两次提交
-
-在 WSL 的 Ubuntu 里操作，方便截图。先配置自己的名字和邮箱（邮箱尽量和 GitHub 一致）：
-
-```bash
-git config --global user.name "NJUROBBIE"
-git config --global user.email "你的邮箱"
-```
-
-第一次只提交游戏：
-
-```bash
-cd ~
-mkdir LiinuxxGame
-cd LiinuxxGame
-git init
-# 把 game.py 和 .gitignore 放进这个目录
-git add game.py .gitignore
-git commit -m "feat: 添加终端夺旗小游戏"
-```
-
-第二次补上说明再推送：
-
-```bash
-# 把 README.md 放进目录
-git add README.md
-git commit -m "docs: 补充运行说明"
-git branch -M main
-git remote add origin https://github.com/NJUROBBIE/LiinuxxGame.git
-git push -u origin main
-```
-
-之后改代码只需：
-
-```bash
-git add .
-git commit -m "说明这次改了什么"
-git push
-```
-
-查看记录：
-
-```bash
-git status
-git log --oneline
-git remote -v
-```
+会检查每层地图宽度、没有钥匙时走不到楼梯的门，以及攻击、开门、喝药。
